@@ -1,0 +1,21 @@
+{
+    "name": "jgauthi/component_backup_file",
+    "description": "Method for backup file, dump database",
+    "type": "library",
+    "keywords": [ "dump" ],
+    "homepage": "https://github.com/jgauthi/component_backup_file",
+    "require": {
+        "php": ">=7.4.0",
+        "ext-pdo": "*"
+    },
+    "config": {
+        "platform": { "php" : "7.4" }
+    },
+    "autoload": {
+        "psr-4": { "Jgauthi\\Component\\BackupFile\\": "src/" }
+    },
+    "license": "GPL-3.0",
+    "authors": [
+        { "name": "jgauthi", "homepage": "https://github.com/jgauthi" }
+    ]
+}
