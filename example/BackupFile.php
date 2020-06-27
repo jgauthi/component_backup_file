@@ -18,6 +18,7 @@ $mailer->addFile(__FILE__);
 
 try {
     $mailer->send($to, $from);
+    echo "Mail successfully sent to {$to->getAddress()}";
 
 } catch (Exception | TransportExceptionInterface $e) {
     echo $e->getMessage();

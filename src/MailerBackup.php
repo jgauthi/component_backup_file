@@ -9,7 +9,6 @@ use Symfony\Component\Mailer\{Mailer, MailerInterface};
 use Symfony\Component\Mailer\Transport\TransportInterface;
 use ZipArchive;
 
-// methods de test, implémentation sans idée précise
 class MailerBackup
 {
     private Email $email;
@@ -25,7 +24,7 @@ class MailerBackup
 
         $this
             ->setTitle(sprintf('[%s] Backup files', date('Y-m-d H:i')))
-            ->setContent('<p>Voici une sauvegarde de plz fichiers paramétré sur le serveur.</p>')
+            ->setContent('<p>Here is a backup of several files configured on the server.</p>')
         ;
     }
 
@@ -73,16 +72,16 @@ class MailerBackup
     private function compressFiles(string $zipfile): bool
     {
         if (empty($this->files)) {
-            throw new InvalidArgumentException('Aucun fichier paramétré pour l\'email de backup.');
+            throw new InvalidArgumentException('No file configured for the backup email.');
         }
 
         $zip = new ZipArchive();
         if (true !== $zip->open($zipfile, ZipArchive::CREATE)) {
-            throw new Exception("Impossible d'ouvrir le fichier <$zipfile>");
+            throw new Exception("Impossible to open the file <$zipfile>");
         }
 
         foreach ($this->files as $file) {
-            $zip->addFile($file->getPath(), $file->getFilename());
+            $zip->addFile($file->getPathname(), $file->getFilename());
         }
 
         $zip->setArchiveComment('Archive generate the '. date('Y-m-d H:i'));
@@ -98,17 +97,23 @@ class MailerBackup
      */
     public function send($to, $from = null): bool
     {
-        $zipFile = tempnam(sys_get_temp_dir(), 'backup');
-        if (!$this->compressFiles($zipFile)) {
-            throw new Exception("Erreur avec la génération du fichier <$zipFile>");
+        if (empty($to)) {
+            throw new InvalidArgumentException("The field 'to' is empty.");
         }
 
-        if (!empty($from)) {
-            $this->email->from($from);
+        $zipFile = tempnam(sys_get_temp_dir(), 'backup');
+        if (!$this->compressFiles($zipFile)) {
+            throw new Exception("Error generating file <$zipFile>");
+        }
+
+        if (empty($from)) {
+            $server = (!empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost');
+            $from = 'no-reply+'. (new \ReflectionClass($this))->getShortName() ."@$server";
         }
 
         $this->email
-            ->to($to)
+            ->from( ($from instanceof Address) ? $from : new Address($from) )
+            ->to( ($to instanceof Address) ? $to : new Address($to) )
             ->priority(Email::PRIORITY_LOWEST)
             ->attachFromPath($zipFile, date('Y-m-d_H-i').'_backup-files.zip')
         ;

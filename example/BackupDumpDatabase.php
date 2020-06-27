@@ -24,3 +24,4 @@ try {
 
 $mailer->addFile($dumpFile);
 $mailer->send('johndoe@example.com');
+echo "Mail successfully sent to johndoe@example.com";
