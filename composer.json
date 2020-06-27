@@ -6,7 +6,8 @@
     "homepage": "https://github.com/jgauthi/component_backup_file",
     "require": {
         "php": ">=7.4.0",
-        "ext-pdo": "*"
+        "ext-zip": "*",
+        "symfony/mailer": "*"
     },
     "config": {
         "platform": { "php" : "7.4" }
