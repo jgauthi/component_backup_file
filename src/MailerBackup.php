@@ -1,4 +1,13 @@
 <?php
+/*******************************************************************************
+ * @name: MailerBackup Component
+ * @note: Component that allows you to send an email to save files from the server (database dump included).
+ * @author: Jgauthi <github.com/jgauthi>, create the [21jun2020]
+ * @version: 1.0
+ * @requirements: PHP 7.4+
+
+ *******************************************************************************/
+
 namespace Jgauthi\Component\BackupFile;
 
 use Exception;

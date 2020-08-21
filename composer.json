@@ -1,22 +1,25 @@
 {
-    "name": "jgauthi/component_backup_file",
-    "description": "Method for backup file, dump database",
-    "type": "library",
-    "keywords": [ "dump" ],
-    "homepage": "https://github.com/jgauthi/component_backup_file",
-    "require": {
-        "php": ">=7.4.0",
-        "ext-zip": "*",
-        "symfony/mailer": "*"
-    },
-    "config": {
-        "platform": { "php" : "7.4" }
-    },
-    "autoload": {
-        "psr-4": { "Jgauthi\\Component\\BackupFile\\": "src/" }
-    },
-    "license": "GPL-3.0",
-    "authors": [
-        { "name": "jgauthi", "homepage": "https://github.com/jgauthi" }
-    ]
+  "name": "jgauthi/component_backup_file",
+  "description": "Method for backup file, dump database",
+  "type": "library",
+  "keywords": [ "dump" ],
+  "homepage": "https://github.com/jgauthi/component_backup_file",
+  "require": {
+    "php": ">=7.4.0",
+    "ext-zip": "*",
+    "symfony/mailer": "*"
+  },
+  "suggest": {
+    "ifsnop/mysqldump-php": "PHP version of mysqldump cli that comes with MySQL, without dependencies, output compression and sane defaults."
+  },
+  "config": {
+    "platform": { "php" : "7.4" }
+  },
+  "autoload": {
+    "psr-4": { "Jgauthi\\Component\\BackupFile\\": "src/" }
+  },
+  "license": "GPL-3.0",
+  "authors": [
+    { "name": "jgauthi", "homepage": "https://github.com/jgauthi" }
+  ]
 }
