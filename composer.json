@@ -12,14 +12,11 @@
   "suggest": {
     "ifsnop/mysqldump-php": "PHP version of mysqldump cli that comes with MySQL, without dependencies, output compression and sane defaults."
   },
-  "config": {
-    "platform": { "php" : "7.4" }
-  },
   "autoload": {
     "psr-4": { "Jgauthi\\Component\\BackupFile\\": "src/" }
   },
   "license": "GPL-3.0",
   "authors": [
-    { "name": "jgauthi", "homepage": "https://github.com/jgauthi" }
+    { "name": "jgauthi", "homepage": "https://github.com/jgauthi", "role": "Developer" }
   ]
 }

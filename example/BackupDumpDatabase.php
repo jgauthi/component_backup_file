@@ -10,6 +10,7 @@ require_once __DIR__.'/vendor/autoload.php';
 $configSmtp = 'smtp://[login]:[password]@[host]:[port]?encryption=tls&auth_mode=cram-md5';
 $transport = Transport::fromDsn($configSmtp);
 $mailer = new MailerBackup( new Mailer($transport) );
+$to = 'johndoe@example.com';
 
 // Use library: https://github.com/ifsnop/mysqldump-php (add "ifsnop/mysqldump-php" on composer)
 // [Alternative] You can create the file with mysqldump command
@@ -23,5 +24,5 @@ try {
 }
 
 $mailer->addFile($dumpFile);
-$mailer->send('johndoe@example.com');
-echo "Mail successfully sent to johndoe@example.com";
+$mailer->send($to);
+echo "Mail successfully sent to {$to}";

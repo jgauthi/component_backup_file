@@ -4,7 +4,6 @@
  * @note: Component that allows you to send an email to save files from the server (database dump included).
  * @author: Jgauthi <github.com/jgauthi>, create the [21jun2020]
  * @version: 1.0
- * @requirements: PHP 7.4+
 
  *******************************************************************************/
 
@@ -41,8 +40,7 @@ class MailerBackup
     {
         $mailer = new Mailer($transport);
 
-        $class = __CLASS__;
-        return new $class($mailer);
+        return new self($mailer);
     }
 
     public function setTitle(string $title): self
@@ -84,7 +82,7 @@ class MailerBackup
             throw new InvalidArgumentException('No file configured for the backup email.');
         }
 
-        $zip = new ZipArchive();
+        $zip = new ZipArchive;
         if (true !== $zip->open($zipfile, ZipArchive::CREATE)) {
             throw new Exception("Impossible to open the file <$zipfile>");
         }
