@@ -2,30 +2,29 @@
 namespace App\Service;
 
 use Jgauthi\Component\BackupFile\MailerBackup;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 
-// You can use also in Symfony Controller
-class SymfonyService
+/**
+ * You can use also in Symfony Controller
+ * example for Symfony 6.3+, require emails VAR on .env: MAILER_TO, MAILER_FROM
+ */
+class SymfonyBackupService
 {
-    private MailerBackup $mailer;
     private Address $to;
-    private ?Address $from;
+    private ?Address $from = null;
 
-    /**
-     * Service constructor.
-     * @param MailerInterface $mailer
-     * @param Address|string $to
-     * @param Address|string|null $from
-     */
-    public function __construct(MailerInterface $mailer, $to, $from = null)
-    {
-        $this->mailer = new MailerBackup($mailer);
+    public function __construct(
+        private MailerBackup $mailer,
+        #[Autowire(env: 'MAILER_TO')] string $to,
+        #[Autowire(env: 'MAILER_FROM')] ?string $from = null,
+    ) {
         $this->mailer->setTitle('Backup files service');
 
-        $this->to = (($to instanceof Address) ? $to : new Address($to));
+        $this->to = new Address($to);
         if (!empty($this->from)) {
-            $this->from = (($from instanceof Address) ? $from : new Address($from));
+            $this->from = new Address($from);
         }
     }
 

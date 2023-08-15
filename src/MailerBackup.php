@@ -2,8 +2,8 @@
 /*******************************************************************************
  * @name: MailerBackup Component
  * @note: Component that allows you to send an email to save files from the server (database dump included).
- * @author: Jgauthi <github.com/jgauthi>, create the [21jun2020]
- * @version: 1.0
+ * @author: Jgauthi, created at [21jun2020], url: <github.com/jgauthi/component_backup_file>
+ * @version: 1.1
 
  *******************************************************************************/
 
@@ -20,14 +20,12 @@ use ZipArchive;
 class MailerBackup
 {
     private Email $email;
-    private MailerInterface $mailer;
 
     /** @var SplFileObject[] files */
     private array $files;
 
-    public function __construct(MailerInterface $mailer)
+    public function __construct(private MailerInterface $mailer)
     {
-        $this->mailer = $mailer;
         $this->email = new Email;
 
         $this
@@ -96,13 +94,10 @@ class MailerBackup
     }
 
     /**
-     * @param Address|string $to
-     * @param Address|string|null $from
-     * @return bool
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      * @throws Exception
      */
-    public function send($to, $from = null): bool
+    public function send(Address|string $to, Address|string|null $from = null): bool
     {
         if (empty($to)) {
             throw new InvalidArgumentException("The field 'to' is empty.");

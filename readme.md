@@ -2,11 +2,11 @@
 Component that allows you to send an email to save files from the server (database dump included).
 
 ## Prerequisite
-
-* PHP 7.4+
+* PHP 8.2 (v1.1+) or 7.4+ (v1.0)
 * [SMTP or 3rd party provider](https://symfony.com/doc/current/mailer.html#transport-setup)
 * PHP extension
     * _(optional)_ Pdo, pdo-mysqli or another database (sqlite, etc)
+
 
 ## Install
 Edit your [composer.json](https://getcomposer.org) (launch `composer update` after edit):
